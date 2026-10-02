@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="uk">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Terra Karana: Start</title>
+    <link rel="icon" type="image/png" href="title.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+ 
+<body>
+    <div class="stage" id="st">
+        <img src="scene.jpg" alt="Піксельний світ з плавучими островами, грибами, що світяться, і заходом сонця">
+        <div class="rays"></div>
+        <div class="fog" style="top:40%"></div>
+        <div class="fog" style="top:52%;animation-duration:70s;animation-direction:alternate-reverse;opacity:.75"></div>
+        <div class="fall" style="left:72.4%;top:28%;width:1.4%;height:16%"></div>
+        <div class="fall" style="left:62.3%;top:51%;width:1.6%;height:12%"></div>
+        <div class="fall" style="left:58%;top:52%;width:1%;height:8%"></div>
+        <div class="river"></div>
+        <canvas id="cv" width="836" height="470"></canvas>
+    </div>
+ 
+    <main class="content">
+        <img src="title.png" class="title" alt="Terra Karana">
+        <nav class="menu" aria-label="Головне меню">
+            <!-- Замініть href="#" на сторінки вашої гри -->
+            <a class="btn btn--main" href="#">Почати гру</a>
+            <a class="btn" href="#">Продовжити</a>
+            <a class="btn" href="#">Налаштування</a>
+            <a class="btn" href="#">Про гру</a>
+        </nav>
+    </main>
+ 
+    <script src="script.js"></script>
+</body>
+ 
+</html>
