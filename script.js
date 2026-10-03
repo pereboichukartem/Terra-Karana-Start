@@ -43,3 +43,136 @@ function f(t) {
     fly(t || 0); x.globalAlpha = 1; if (!still) requestAnimationFrame(f)
 }
 requestAnimationFrame(f);
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const startBtn = document.getElementById('startBtn');
+    const continueBtn = document.getElementById('continueBtn');
+    const settingsBtn = document.getElementById('settingsBtn');
+    const aboutBtn = document.getElementById('aboutBtn');
+    const modalAbout = document.getElementById('modal-about');
+    const modalSettings = document.getElementById('modal-settings');
+    const closeAboutModal = document.getElementById('close-about-modal');
+    const closeSettingsModal = document.getElementById('close-settings-modal');
+    const menu = document.getElementById('menu');
+    const volume = document.getElementById('volume');
+    const volumetxt = document.getElementById('volumetxt');
+    const music = document.getElementById('music');
+    const musictxt = document.getElementById('musictxt');
+    const difficultySelect = document.getElementById('difficulty');
+    const hintsToggle = document.getElementById('hintsToggle');
+    const autosaveToggle = document.getElementById('autosaveToggle');
+    const applySettingsBtn = document.getElementById('applySettingsBtn');
+    const resetSettingsBtn = document.getElementById('resetSettingsBtn');
+    const storageKey = 'terra-karana-settings';
+    const defaultSettings = {
+        volume: 70,
+        music: 60,
+        difficulty: 'Звичайна',
+        hints: true,
+        autosave: true
+    };
+
+    const readSettings = () => {
+        try {
+            const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
+            return { ...defaultSettings, ...saved };
+        } catch {
+            return { ...defaultSettings };
+        }
+    };
+
+    const saveSettings = (settings = getCurrentSettings()) => {
+        try {
+            localStorage.setItem(storageKey, JSON.stringify(settings));
+        } catch {
+            console.warn('Не вдалося зберегти налаштування');
+        }
+    };
+
+    const getCurrentSettings = () => ({
+        volume: Number(volume.value),
+        music: Number(music.value),
+        difficulty: difficultySelect.value,
+        hints: hintsToggle.checked,
+        autosave: autosaveToggle.checked
+    });
+
+    const applySettingsToForm = (settings) => {
+        volume.value = settings.volume;
+        volumetxt.textContent = `${settings.volume}%`;
+
+        music.value = settings.music;
+        musictxt.textContent = `${settings.music}%`;
+
+        difficultySelect.value = settings.difficulty;
+        hintsToggle.checked = Boolean(settings.hints);
+        autosaveToggle.checked = Boolean(settings.autosave);
+    };
+
+    const closeAllModals = () => {
+        modalAbout.style.display = 'none';
+        modalSettings.style.display = 'none';
+        menu.style.display = 'flex';
+    };
+
+    applySettingsToForm(readSettings());
+
+    function syncSettingValue(input, label) {
+        label.textContent = `${input.value}%`;
+        if (autosaveToggle.checked) {
+            saveSettings(getCurrentSettings());
+        }
+    }
+
+    volume.addEventListener('input', () => syncSettingValue(volume, volumetxt));
+    music.addEventListener('input', () => syncSettingValue(music, musictxt));
+
+    difficultySelect.addEventListener('change', () => {
+        if (autosaveToggle.checked) {
+            saveSettings(getCurrentSettings());
+        }
+    });
+
+    hintsToggle.addEventListener('change', () => {
+        if (autosaveToggle.checked) {
+            saveSettings(getCurrentSettings());
+        }
+    });
+
+    autosaveToggle.addEventListener('change', () => {
+        saveSettings(getCurrentSettings());
+    });
+
+    applySettingsBtn.addEventListener('click', () => {
+        saveSettings(getCurrentSettings());
+    });
+
+    resetSettingsBtn.addEventListener('click', () => {
+        applySettingsToForm(defaultSettings);
+        saveSettings(defaultSettings);
+    });
+
+    aboutBtn.addEventListener('click', () => {
+        closeAllModals();
+        modalAbout.style.display = 'block';
+        menu.style.display = 'none';
+    });
+
+    settingsBtn.addEventListener('click', () => {
+        closeAllModals();
+        modalSettings.style.display = 'block';
+        menu.style.display = 'none';
+    });
+
+    closeAboutModal.addEventListener('click', closeAllModals);
+    closeSettingsModal.addEventListener('click', closeAllModals);
+
+    modalAbout.addEventListener('click', (event) => {
+        if (event.target === modalAbout) closeAllModals();
+    });
+
+    modalSettings.addEventListener('click', (event) => {
+        if (event.target === modalSettings) closeAllModals();
+    });
+});
