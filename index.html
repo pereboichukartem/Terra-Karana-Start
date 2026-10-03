@@ -27,15 +27,96 @@
  
     <main class="content">
         <img src="title.png" class="title" alt="Terra Karana">
-        <nav class="menu" aria-label="Головне меню">
+        <nav class="menu" id="menu" aria-label="Головне меню">
             <!-- Замініть href="#" на сторінки вашої гри -->
-            <a class="btn btn--main" href="#">Почати гру</a>
-            <a class="btn" href="#">Продовжити</a>
-            <a class="btn" href="#">Налаштування</a>
-            <a class="btn" href="#">Про гру</a>
+            <a class="btn btn--main" href="#" id="startBtn">Почати гру</a>
+            <a class="btn" href="#" id="continueBtn">Продовжити</a>
+            <a class="btn" href="#" id="settingsBtn">Налаштування</a>
+            <a class="btn" href="#" id="aboutBtn">Про гру</a>
         </nav>
     </main>
- 
+    
+    <div class="modal" id="modal-about">
+        <div class="modal-content">
+            <span class="close" id="close-about-modal">&times;</span>
+            <h2>Про гру</h2>
+            <p>
+                Terra Karana — це піксельна пригодницька гра про подорож по чарівному світі
+                плаваючих островів, загадкових джерел, магічних рослин і небезпечних кордонів.
+                Гра виконана за мотивами мультсеріалу Ninjago: Prime Empire, поєднуючи атмосферу подорожі,
+                дослідження та таємничих випробувань. Гравець вирушає в пошук легендарної ключ-катани,
+                збирає артефакти та долає випробування, які вимагають уважності, швидкості та
+                стратегічного мислення.
+            </p>
+
+            <div class="modal-section">
+                <h3>Особливості гри</h3>
+                <ul>
+                    <li>Оригінальний світ із піксельною атмосферою та плавною анімацією.</li>
+                    <li>Пошук та дослідження різних зон: лісів, водних просторів, островів і бійцівських ділянок.</li>
+                    <li>Механіка збору ресурсів, предметів і секретних знань.</li>
+                    <li>Складні, але зрозумілі завдання для гравця будь-якого рівня.</li>
+                    <li>Естетика фентезійного фону, що поєднує спокій і напругу.</li>
+                    <li>Готовність до розширення: нові рівні, локації та механіки.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modal-settings">
+        <div class="modal-content modal-content--settings">
+            <span class="close" id="close-settings-modal">&times;</span>
+            <h2>Налаштування</h2>
+
+            <div class="settings-grid">
+                <div class="setting-row">
+                    <label for="volume">Гучність</label>
+                    <div class="setting-control">
+                        <input type="range" id="volume" name="volume" min="0" max="100" value="70">
+                        <span class="value-badge" id="volumetxt">70%</span>
+                    </div>
+                </div>
+
+                <div class="setting-row">
+                    <label for="music">Музика</label>
+                    <div class="setting-control">
+                        <input type="range" id="music" name="music" min="0" max="100" value="60">
+                        <span class="value-badge" id="musictxt">60%</span>
+                    </div>
+                </div>
+
+                <div class="setting-row">
+                    <label for="difficulty">Складність</label>
+                    <select id="difficulty" name="difficulty">
+                        <option>Легка</option>
+                        <option selected>Звичайна</option>
+                        <option>Важка</option>
+                    </select>
+                </div>
+
+                <div class="setting-row setting-row--check">
+                    <label for="hintsToggle">Підказки</label>
+                    <label class="switch">
+                        <input type="checkbox" checked id="hintsToggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-row setting-row--check">
+                    <label for="autosaveToggle">Автозбереження</label>
+                    <label class="switch">
+                        <input type="checkbox" checked id="autosaveToggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="settings-actions">
+                <button type="button" class="settings-btn settings-btn--main" id="applySettingsBtn">Застосувати</button>
+                <button type="button" class="settings-btn" id="resetSettingsBtn">За замовчуванням</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
  
